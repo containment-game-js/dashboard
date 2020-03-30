@@ -1,20 +1,43 @@
 <template lang="html">
-  <apexchart width="100%" type="pie" :options="chartOptions" :series="series"></apexchart>
-
+  <apexchart
+    v-if="occupation.idle && occupation.preparation && occupation.inGame"
+    width="100%"
+    type="pie"
+    :options="chartOptions"
+    :series="series">
+  </apexchart>
+  <div v-else></div>
 </template>
 
 <script>
 export default {
+  computed: {
+    occupation() {
+      return this.$store.getters.occupation
+    },
+    series() {
+      const {
+        idle,
+        preparation,
+        inGame
+      } = this.occupation
+      return [
+        Object.keys(idle).length,
+        Object.keys(preparation).length,
+        Object.keys(inGame).length,
+      ]
+    }
+  },
   data() {
     return {
-      series: [20, 12, 68],
       chartOptions: {
-        labels: ['Idle', 'Preparation', 'Code name']
-      }
+        labels: ['Idle', 'Preparation', 'Code name', ],
+        animations: {
+          enabled: false
+        }
+      },
+
     }
   }
 }
 </script>
-
-<style lang="css" scoped>
-</style>

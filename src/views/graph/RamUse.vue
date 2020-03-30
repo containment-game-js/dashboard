@@ -4,19 +4,36 @@
 
 <script>
 export default {
+  computed: {
+    series() {
+      return [{
+        name: 'ram',
+        data: this.$store.getters.ram.map(_ => _)
+      }]
+    }
+  },
   data() {
     return {
       chartOptions: {
         chart: {
           id: 'ram',
         },
-
-      },
-      series: [{
-          name: 'ram',
-          data: [0, 1, 5, 10, 11, 12, 22, 27, ]
+        xaxis: {
+          labels: {
+            formatter: function(value, timestamp) {
+              const date = new Date(timestamp)
+              return `${date.getHours()}:${date.getMinutes()}`
+            },
+          }
         },
-      ]
+        yaxis: {
+          labels: {
+            formatter: function(value) {
+              return Number.parseFloat(value).toFixed(2)
+            }
+          },
+        },
+      },
     }
   },
 }

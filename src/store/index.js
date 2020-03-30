@@ -1,17 +1,47 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {getInfo} from '../services/info'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
-    rooms: []
+    ram: [],
+    rooms: [],
+    sockets: [],
+    occupation: {},
+    roomInfo: []
   },
   mutations: {
     updateRooms: (state, rooms) => {
       state.rooms = rooms
+    },
+    updateRam: (state, ram) => {
+      state.ram = ram
+    },
+    updateSockets: (state, sockets) => {
+      state.sockets = sockets
+    },
+    updateOccupation: (state, occupation) => {
+      state.occupation = occupation
+    },
+    updateRoomInformation: (state, roomInformation) => {
+      state.roomInformation = roomInformation
     }
   },
   actions: {},
-  modules: {}
+  modules: {},
+  getters: {
+    ram: state => {
+      return state.ram
+    },
+    rooms: state => state.rooms,
+    sockets: state => state.sockets,
+    occupation: state => state.occupation,
+    roomInfo: state => state.roomInfo
+  }
 })
+
+getInfo(store)
+
+export default store

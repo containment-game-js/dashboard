@@ -1,20 +1,22 @@
 <template lang="html">
   <div class="now">
     <div class="val">
-      Sockets : {{socket}}
+      Sockets : {{socket.length}}
     </div>
     <div class="val">
-      Rooms : {{rooms}}
+      Rooms : {{rooms.length}}
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      socket: 123,
-      rooms: 51,
+  computed: {
+    socket() {
+      return Object.values(this.$store.getters.occupation).reduce((acc, val) => acc.concat(val), [])
+    },
+    rooms() {
+      return this.$store.getters.roomInfo
     }
   }
 }
