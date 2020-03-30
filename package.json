@@ -1,6 +1,7 @@
 {
   "name": "containment-dashboard",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "faker": "^4.1.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
