@@ -5,11 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    rooms: []
   },
   mutations: {
+    updateRooms: (state, rooms) => {
+      state.rooms = rooms
+    }
   },
-  actions: {
-  },
-  modules: {
-  }
+  actions: {},
+  modules: {}
 })
