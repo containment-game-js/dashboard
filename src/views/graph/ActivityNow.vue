@@ -16,7 +16,7 @@ export default {
       return Object.values(this.$store.getters.occupation).reduce((acc, val) => acc.concat(val), [])
     },
     rooms() {
-      return this.$store.getters.roomInfo
+      return this.$store.getters.roomInformation
     }
   }
 }

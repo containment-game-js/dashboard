@@ -10,7 +10,7 @@ const store = new Vuex.Store({
     rooms: [],
     sockets: [],
     occupation: {},
-    roomInfo: []
+    roomInformation: []
   },
   mutations: {
     updateRooms: (state, rooms) => {
@@ -38,7 +38,7 @@ const store = new Vuex.Store({
     rooms: state => state.rooms,
     sockets: state => state.sockets,
     occupation: state => state.occupation,
-    roomInfo: state => state.roomInfo
+    roomInformation: state => state.roomInformation
   }
 })
 
