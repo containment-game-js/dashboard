@@ -16,6 +16,10 @@
       <label for="ramuse">Ram utilization</label>
       <RamUse id="ramuse"/>
     </div>
+    <div class="element">
+      <label for="ramuse">Ram utilization</label>
+      <CpuUse id="ramuse"/>
+    </div>
   </div>
 </div>
 </template>
@@ -25,6 +29,7 @@ import Activity from '@/views/graph/Activity.vue'
 import ActivityNow from '@/views/graph/ActivityNow.vue'
 import Occupation from '@/views/graph/Occupation.vue'
 import RamUse from '@/views/graph/RamUse.vue'
+import CpuUse from '@/views/graph/CpuUse.vue'
 export default {
   name: 'Home',
   components: {
@@ -32,6 +37,7 @@ export default {
     ActivityNow,
     RamUse,
     Occupation,
+    CpuUse,
   }
 }
 </script>
@@ -39,7 +45,7 @@ export default {
 <style media="screen">
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 10px;
   padding: 10px;
 }
