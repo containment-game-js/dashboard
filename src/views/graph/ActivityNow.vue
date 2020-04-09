@@ -4,6 +4,9 @@
       Sockets : {{socket.length}}
     </div>
     <div class="val">
+      Users : {{users.length}}
+    </div>
+    <div class="val">
       Rooms : {{rooms.length}}
     </div>
   </div>
@@ -14,6 +17,9 @@ export default {
   computed: {
     socket() {
       return Object.values(this.$store.getters.occupation).reduce((acc, val) => acc.concat(val), [])
+    },
+    users() {
+      return [].concat(this.$store.getters.occupation.preparation).concat(this.$store.getters.occupation.inGame)
     },
     rooms() {
       return this.$store.getters.roomInformation

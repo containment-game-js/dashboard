@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {getInfo} from '../services/info'
+import {
+  getInfo
+} from '../services/info'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    cpu: [],
     ram: [],
     rooms: [],
     sockets: [],
@@ -16,8 +19,13 @@ const store = new Vuex.Store({
     updateRooms: (state, rooms) => {
       state.rooms = rooms
     },
+    updateCpu: (state, cpu) => {
+      if (state.cpu.length !== cpu.length)
+        state.cpu = cpu
+    },
     updateRam: (state, ram) => {
-      state.ram = ram
+      if (state.ram.length !== ram.length)
+        state.ram = ram
     },
     updateSockets: (state, sockets) => {
       state.sockets = sockets
@@ -32,9 +40,8 @@ const store = new Vuex.Store({
   actions: {},
   modules: {},
   getters: {
-    ram: state => {
-      return state.ram
-    },
+    ram: state => state.ram.slice(0, 60),
+    cpu: state => state.cpu.slice(0, 60),
     rooms: state => state.rooms,
     sockets: state => state.sockets,
     occupation: state => state.occupation,

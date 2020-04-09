@@ -11,6 +11,17 @@ export default {
   components: {
     List
   },
+  computed: {
+    rows() {
+      return Array(50).fill(1).map(_ => ([
+        faker.random.uuid(),
+        faker.date.past(),
+        faker.date.recent(),
+        faker.hacker.noun() + faker.random.number(),
+        Array(4).fill(1).map(_ => faker.internet.userName())
+      ]))
+    }
+  },
   data() {
     return {
       col: [
@@ -20,13 +31,6 @@ export default {
         'name',
         'players',
       ],
-      rows: Array(50).fill(1).map(_ => ([
-        faker.random.uuid(),
-        faker.date.past(),
-        faker.date.recent(),
-        faker.hacker.noun() + faker.random.number(),
-        Array(4).fill(1).map(_ => faker.internet.userName())
-      ]))
     }
   },
   methods: {
