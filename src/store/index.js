@@ -20,10 +20,12 @@ const store = new Vuex.Store({
       state.rooms = rooms
     },
     updateCpu: (state, cpu) => {
-      state.cpu = cpu
+      if (state.cpu.length !== cpu.length)
+        state.cpu = cpu
     },
     updateRam: (state, ram) => {
-      state.ram = ram
+      if (state.ram.length !== ram.length)
+        state.ram = ram
     },
     updateSockets: (state, sockets) => {
       state.sockets = sockets
