@@ -41,7 +41,7 @@ const store = new Vuex.Store({
   modules: {},
   getters: {
     ram: state => state.ram.slice(0, 60),
-    cpu: state => state.cpu.ram.slice(0, 60),
+    cpu: state => state.cpu.slice(0, 60),
     rooms: state => state.rooms,
     sockets: state => state.sockets,
     occupation: state => state.occupation,
