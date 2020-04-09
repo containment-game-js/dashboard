@@ -17,7 +17,7 @@
       <RamUse id="ramuse"/>
     </div>
     <div class="element">
-      <label for="ramuse">Ram utilization</label>
+      <label for="ramuse">Cpu utilization</label>
       <CpuUse id="ramuse"/>
     </div>
   </div>
