@@ -19,7 +19,7 @@ export default {
       return Object.values(this.$store.getters.occupation).reduce((acc, val) => acc.concat(val), [])
     },
     users() {
-      return this.$store.getters.occupation.preparation.concat(this.$store.getters.occupation.inGame)
+      return [].concat(this.$store.getters.occupation.preparation).concat(this.$store.getters.occupation.inGame)
     },
     rooms() {
       return this.$store.getters.roomInformation
