@@ -51,11 +51,11 @@ export default {
 
 .navbar {
   grid-area: navbar;
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid var(--secondary);
   display: flex;
   position: sticky;
   top: 0;
-  background: var(--white);
+  background: var(--primary);
   align-items: center;
   z-index: 1;
   flex-wrap: wrap;
@@ -68,6 +68,6 @@ export default {
 
 .sidebar {
   overflow-y: scroll;
-  border-right: 1px solid var(--primary);
+  border-right: 1px solid var(--secondary);
 }
 </style>

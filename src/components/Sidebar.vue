@@ -39,7 +39,7 @@ export default {
 
 <style>
 .sidebar-main {
-  background: white;
+  background: var(--primary);
   height: 100%;
 }
 
@@ -47,7 +47,7 @@ export default {
   text-decoration: none;
   color: var(--ternary);
   font-weight: 500;
-  border-right: 5px solid var(--white);
+  border-left: 5px solid var(--primary);
   display: flex;
   align-items: center;
 }
@@ -61,12 +61,12 @@ export default {
 
 .section:hover {
   cursor: pointer;
-  border-right-color: rgba(var(--secondary-rgb), 0.2);
+  border-left-color: rgba(var(--secondary-rgb), 0.2);
   background: rgba(var(--secondary-rgb), 0.05);
 }
 
 .section.router-link-exact-active {
-  border-right-color: rgba(var(--secondary-rgb), 0.8);
+  border-left-color: rgba(var(--secondary-rgb), 0.8);
   background: rgba(var(--secondary-rgb), 0.1);
 }
 </style>

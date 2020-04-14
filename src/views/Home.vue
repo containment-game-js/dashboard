@@ -50,7 +50,7 @@ export default {
   padding: 10px;
 }
 .element {
-  background: white;
+  background: var(--primary);
 }
 .element label {
   padding: 10px;
