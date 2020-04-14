@@ -116,7 +116,7 @@ export default {
   border-radius: 5px;
   box-shadow: 0px 0px 2px 1px var(--primary);
   grid-template-rows: auto 1fr;
-  height: 100%;
+  max-height: 100%;
   overflow: hidden;
   background: var(--contrast-background);
 }
@@ -161,7 +161,7 @@ export default {
 
 .header.cell {
   font-weight: 500;
-  background: var(--white);
+  background: var(--contrast-background);
 }
 
 .value.cell {
