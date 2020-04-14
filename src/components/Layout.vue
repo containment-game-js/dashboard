@@ -63,7 +63,7 @@ export default {
 
 .main {
   position: relative;
-  width: 100%;
+  overflow: hidden;
 }
 
 .sidebar {

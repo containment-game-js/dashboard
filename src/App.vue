@@ -35,7 +35,12 @@ export default {
   --secondary: #3f72af;
   --primary: #dbe2ef;
   --background: #f9f7f7;
+  --contrast-background: #fafdff;
+  --contraster-background: #f1faff;
+  --background: 249, 246, 246;
+  --primary-rgb: 218, 225, 238;
   --secondary-rgb: 63, 114, 175;
+  --ternary-rgb: 17, 45, 78;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,7 +49,12 @@ export default {
     --secondary: #3282b8;
     --primary: #0f4c75;
     --background: #1b262c;
+    --contrast-background: #2b3d47;
+    --contraster-background: #3c5462;
+    --background-rgb: 27, 39, 45;
+    --primary-rgb: 15, 76, 117;
     --secondary-rgb: 50, 130, 184;
+    --ternary-rgb: 187, 225, 250;
   }
 }
 

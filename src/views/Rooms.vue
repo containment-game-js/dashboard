@@ -1,6 +1,10 @@
 <template lang="html">
-  <div class="rooms-display">
-    <List :rows="rows" :columns="col" :action="click" />
+  <div class="rooms-display pad">
+    <List
+      :rows="$store.getters.roomInformation"
+      :columns="col"
+      :action="click"
+    />
   </div>
 </template>
 
@@ -12,24 +16,20 @@ export default {
   components: {
     List,
   },
-  computed: {
-    rows() {
-      return Array(50)
-        .fill(1)
-        .map(_ => [
-          faker.random.uuid(),
-          faker.date.past(),
-          faker.date.recent(),
-          faker.hacker.noun() + faker.random.number(),
-          Array(4)
-            .fill(1)
-            .map(_ => faker.internet.userName()),
-        ])
-    },
-  },
+  computed: {},
   data() {
     return {
-      col: ['roomID', 'createdAt', 'updatedAt', 'name', 'players'],
+      col: [
+        { name: 'ID', field: 'id' },
+        { name: 'Name', field: 'name' },
+        {
+          name: 'Players',
+          field: 'players',
+          format: players => players.map(({ name }) => name).join('\n'),
+        },
+        { name: 'Created At', field: 'createdAt' },
+        { name: 'Updated At', field: 'updatedAt' },
+      ],
     }
   },
   methods: {
@@ -42,6 +42,7 @@ export default {
 
 <style lang="css" scoped>
 .rooms-display {
-  overflow: auto;
+  overflow: hidden;
+  height: 100%;
 }
 </style>
