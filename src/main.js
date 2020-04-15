@@ -12,6 +12,7 @@ import {
   faUsers,
   faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
+require('./config/firebase')
 
 library.add(faHome)
 library.add(faUser)
