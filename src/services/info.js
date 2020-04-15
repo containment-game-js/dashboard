@@ -5,23 +5,24 @@ const getInfo = store => {
   subscribeToType({type: 'updateCpu', store})
   subscribeToType({type: 'updateRooms', store})
   subscribeToType({type: 'updateSockets', store})
-  subscribeToType({type: 'updateOccupation', store})
-  subscribeToType({type: 'updateRoomInformation', store})
 }
 
 const subscribeToType = async ({type, store}) => {
-  const snapshot = await db.collection(type).get()
-  storeSnapshot({type, store, snapshot})
-  db.collection(type).onSnapshot((snapshot) => {
-    storeSnapshot({type, store, snapshot: snapshot.docChanges()})
-  })
+  db().collection(type).get().then(snapshot => storeSnapshot({type, store, snapshot}))
+  db().collection(type).onSnapshot((snapshot) => storeSnapshot({type, store, snapshot: snapshot.docChanges()}))
 }
 
 const storeSnapshot = async ({type, store, snapshot}) => {
-  const data = snapshot.docs.map(doc => doc.data())
-  store.commit(type, data)
+  const docs = snapshot.docs
+  if (docs) {
+    const data = docs.map(doc => doc.data())
+    store.commit(type, data)
+    console.log('data', type, data)
+  } else {
+    console.log('no data', type)
+  }
 }
 
 export {
-  getInfo,
+  getInfo
 }

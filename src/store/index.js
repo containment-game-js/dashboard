@@ -29,10 +29,10 @@ const store = new Vuex.Store({
       state.sockets = state.sockets.concat(sockets)
     },
     updateOccupation: (state, occupation) => {
-      state.occupation = state.occupation.concat(occupation)
+      state.occupation = occupation
     },
     updateRoomInformation: (state, roomInformation) => {
-      state.roomInformation = state.roomInformation.concat(roomInformation)
+      state.roomInformation = roomInformation
     },
   },
   actions: {},
