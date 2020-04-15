@@ -1,10 +1,11 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+admin.initializeApp();
 const db = admin.firestore();
 
 const TOPIC_TEST = 'logs-test'
 
-exports.logSubTest = functions.pubsub.topic(TOPIC_TEST).onPublish(async (message) => {
+exports.logSubTest = functions.region('europe-west3').pubsub.topic(TOPIC_TEST).onPublish(async (message) => {
   try {
     name = message.json.name;
     const {
