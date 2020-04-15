@@ -1,38 +1,30 @@
 <template lang="html">
-  <table class="list">
+  <table class="list-list">
     <thead class="list-thead">
-      <tr :class="generateColumnsClassName()" class="list-th">
-        <th
-          v-for="col in columns"
-          :key="col.field"
-          class="header cell event pad list-td"
-        >
-          {{ col.name }}
-        </th>
-      </tr>
+      <list-head :class="columnsClass" :columns="columns" />
     </thead>
     <tbody class="list-tbody">
-      <tr
-        v-for="(row, idx) in computedRows"
+      <list-rows
+        :class="columnsClass"
+        v-for="(row, idx) in computeRows()"
         :key="idx"
-        :class="generateColumnsClassName()"
-        class="list-tr"
-      >
-        <td
-          class="value cell pad list-td"
-          :class="{ even: idx % 2 === 0, odd: idx % 2 !== 0, ...val.classes }"
-          v-for="(val, index) in row"
-          :key="`${index}${idx}`"
-        >
-          {{ val.value }}
-        </td>
-      </tr>
+        :value="row"
+        :index="idx"
+      />
     </tbody>
   </table>
 </template>
 
 <script>
+import ListHead from '@/components/List/Head.vue'
+import ListRows from '@/components/List/Rows.vue'
+import * as list from '@/helpers/list'
+
 export default {
+  components: {
+    ListHead,
+    ListRows,
+  },
   props: {
     columns: Array,
     rows: [Array],
@@ -41,77 +33,50 @@ export default {
   },
   data() {
     return {
-      computedRows: [],
       ruleIndex: null,
     }
   },
   mounted() {
-    this.createCorrectCssRule(this.columns)
+    list.createCorrectCssRule(this.ruleIndex, this.columns)
   },
   methods: {
-    generateColumnsClassName() {
-      const length = this.columns.length
-      return `list-columns-template-${length}`
+    computeRows() {
+      return this.rows.map(async row => {
+        const columns = this.columns.map(this.computeRowColumns(row))
+        return Promise.all(columns)
+      })
     },
-    createCorrectCssRule(newValue, oldValue) {
-      const stylesheet = document.getElementById('injected-styles').sheet
-      if (this.ruleIndex) {
-        const oldLength = (oldValue || []).length
-        stylesheet.deleteRule(this.ruleIndex)
-      }
-      const newLength = newValue.length
-      const className = `.${this.generateColumnsClassName()}`
-      const classContent = `grid-template-columns: repeat(${newLength}, 1fr);`
-      const finalClass = `${className} { ${classContent} }`
-      const index = stylesheet.insertRule(finalClass)
-      this.ruleIndex = index
-    },
-    sort(col) {
-      if (this.sortBy) {
-        this.rows = this.sortBy(col, this.rows)
+    computeRowColumns(row) {
+      return async function ({ field, format, ...others }) {
+        const fil = row[field]
+        const klasses = others.classes || []
+        const toObject = (acc, val) => ({ ...acc, [val]: true })
+        const classes = klasses.reduce(toObject, {})
+        if (format) {
+          return { value: format(fil), classes }
+        } else {
+          return { value: fil, classes }
+        }
       }
     },
   },
   computed: {
-    columnsTemplate() {
-      return this.columns.length
-    },
     columnsClass() {
-      return this.generateColumnsClassName()
+      return list.generateColumnsClassName(this.columns)
     },
   },
   watch: {
     columns(newValue, oldValue) {
-      this.createCorrectCssRule(newValue, oldValue)
-    },
-    rows: async function (newRows) {
-      const lines = await Promise.all(
-        newRows.map(async row => {
-          return Promise.all(
-            this.columns.map(async ({ field, format, ...others }) => {
-              const fil = row[field]
-              const klasses = others.classes || []
-              const classes = klasses.reduce(
-                (acc, val) => ({ ...acc, [val]: true }),
-                {}
-              )
-              if (format) {
-                return { value: format(fil), classes }
-              } else {
-                return { value: fil, classes }
-              }
-            })
-          )
-        })
-      )
-      this.computedRows = lines
+      if (newValue.length !== oldValue.length) {
+        list.createCorrectCssRule(this.ruleIndex, newValue, oldValue)
+      }
     },
   },
 }
 </script>
 
-<style lang="css" scoped>
-.list {
+<style lang="css">
+.list-list {
   display: grid;
   border-radius: 5px;
   box-shadow: 0px 0px 2px 1px var(--primary);
@@ -145,25 +110,17 @@ export default {
   height: 100%;
 }
 
-.even {
-  background: var(--contraster-background);
-}
-
-.odd {
-  background: var(--contrast-background);
-}
-
-.cell {
+.list-cell {
   flex-shrink: 0;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.header.cell {
+.list-header.list-cell {
   font-weight: 500;
   background: var(--contrast-background);
 }
 
-.value.cell {
+.list-value.list-cell {
 }
 </style>
