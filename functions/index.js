@@ -10,11 +10,13 @@ exports.logSubTest = functions.pubsub.topic(TOPIC_TEST).onPublish(async (message
     const {
       type,
       payload,
-      version
+      version,
+      timestamp,
     } = message.json
-    if (type && payload && version) {
+    if (type && payload && version && timestamp) {
       db.collection(type).add({
         versionLog: version,
+        timestamp,
         ...payload
       })
     } else {
