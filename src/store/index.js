@@ -38,8 +38,8 @@ const store = new Vuex.Store({
   actions: {},
   modules: {},
   getters: {
-    ram: state => state.ram.slice(0, 60),
-    cpu: state => state.cpu.slice(0, 60),
+    ram: state => state.ram.slice(-60, -1).concat(state.ram[-1]).map(({timestamp, value}) => ([timestamp, value])),
+    cpu: state => state.cpu.slice(-60, -1).concat(state.cpu[-1]).map(({timestamp, value}) => ([timestamp, value])),
     rooms: state => state.rooms,
     sockets: state => state.sockets,
     occupation: state => state.occupation,
