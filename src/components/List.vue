@@ -97,6 +97,8 @@ export default {
 
 .list-tr {
   display: grid;
+  align-items: center;
+  justify-items: center;
 }
 
 .list-th {
@@ -107,11 +109,9 @@ export default {
 
 .list-td {
   display: block;
-  height: 100%;
 }
 
 .list-cell {
-  flex-shrink: 0;
   text-overflow: ellipsis;
   overflow: hidden;
 }

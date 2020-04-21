@@ -1,10 +1,10 @@
 <template lang="html">
-  <tr class="list-tr">
+  <tr class="list-tr" :class="{ even: index % 2 === 0, odd: index % 2 !== 0 }">
     <td
       v-for="(value, key) in content"
       :key="`${key}${index}`"
       class="list-cell pad list-td"
-      :class="{ even: index % 2 === 0, odd: index % 2 !== 0, ...value.classes }"
+      :class="value.classes"
     >
       {{ value.value }}
     </td>
