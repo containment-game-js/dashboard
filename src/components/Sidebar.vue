@@ -1,51 +1,72 @@
 <template>
-<div class="sidebar">
-  <router-link v-for="link in links" :key="link.link" class="section" :to="link.link">
-    {{link.title}}
-  </router-link>
-</div>
+  <div class="sidebar-main">
+    <router-link
+      v-for="link in links"
+      :key="link.link"
+      class="section l-pad-x pad-y"
+      :to="link.link"
+    >
+      <row align="center" justify="center" class="link-icon">
+        <font-awesome-icon :icon="link.icon" />
+      </row>
+      <div class="link-title">
+        {{ link.title }}
+      </div>
+    </router-link>
+  </div>
 </template>
 
 <script>
+import Row from '@/components/Row.vue'
+
+const link = (title, link, icon) => ({ title, link, icon })
+
 export default {
-  name: 'HelloWorld',
+  components: {
+    Row,
+  },
   data() {
     return {
-      links: [{
-          title: 'Activity',
-          link: '/'
-        },
-        {
-          title: 'Rooms',
-          link: '/rooms'
-        },
-        {
-          title: 'Parameter',
-          link: '/parameter'
-        },
-      ]
+      links: [
+        link('Activity', '/', 'home'),
+        link('Rooms', '/rooms', 'users'),
+        link('Parameters', '/parameters', 'user'),
+      ],
     }
-  }
+  },
 }
 </script>
 
 <style>
-.sidebar {
-  background: white;
+.sidebar-main {
+  background: var(--primary);
   height: 100%;
+}
+
+.section {
+  text-decoration: none;
+  color: var(--ternary);
+  font-weight: 500;
+  border-left: 5px solid var(--primary);
+  display: flex;
+  align-items: center;
+}
+
+.link-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 12px;
+  color: var(--secondary);
 }
 
 .section:hover {
   cursor: pointer;
-  background: #f1f1f1;
+  border-left-color: rgba(var(--secondary-rgb), 0.2);
+  background: rgba(var(--secondary-rgb), 0.05);
 }
 
-.section {
-  display: flex;
-  text-decoration: none;
-  color: #202020;
-  padding: 2rem;
-  font-size: 18px;
-  align-items: center;
+.section.router-link-exact-active {
+  border-left-color: rgba(var(--secondary-rgb), 0.8);
+  background: rgba(var(--secondary-rgb), 0.1);
 }
 </style>

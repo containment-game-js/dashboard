@@ -1,13 +1,11 @@
 <template lang="html">
   <div class="a">
-    {{$route.params.id}}
+    {{ $route.params.id }}
   </div>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

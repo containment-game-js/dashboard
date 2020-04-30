@@ -1,16 +1,23 @@
 <template lang="html">
-  <apexchart width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
+  <apex-chart
+    width="100%"
+    type="line"
+    :options="chartOptions"
+    :series="series"
+  />
 </template>
 
 <script>
 export default {
   computed: {
     series() {
-      return [{
-        name: 'cpu',
-        data: this.$store.getters.cpu.map(_ => _)
-      }]
-    }
+      return [
+        {
+          name: 'cpu',
+          data: this.$store.getters.cpu.map(_ => _),
+        },
+      ]
+    },
   },
   data() {
     return {
@@ -20,17 +27,17 @@ export default {
         },
         xaxis: {
           labels: {
-            formatter: function(value, timestamp) {
+            formatter: function (value, timestamp) {
               const date = new Date(timestamp)
               return `${date.getHours()}:${date.getMinutes()}`
             },
-          }
+          },
         },
         yaxis: {
           labels: {
-            formatter: function(value) {
+            formatter: function (value) {
               return Number.parseFloat(value).toFixed(2)
-            }
+            },
           },
         },
       },
@@ -39,5 +46,4 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

@@ -1,70 +1,126 @@
 <template lang="html">
-  <div class="list">
-    <table>
-      <thead>
-        <th v-for="col in columns" :key="col" @click="sort(col)"> {{col}} </th>
-      </thead>
-      <tbody>
-        <tr v-for="(row, i) in rows" :key="i" @click="action(row, i)">
-          <td v-for="(val, j) in row" :key="j"> {{val}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="list-list">
+    <thead class="list-thead">
+      <list-head :class="columnsClass" :columns="columns" />
+    </thead>
+    <tbody class="list-tbody">
+      <list-rows
+        :class="columnsClass"
+        v-for="(row, idx) in computeRows()"
+        :key="idx"
+        :value="row"
+        :index="idx"
+      />
+    </tbody>
+  </table>
 </template>
 
 <script>
+import ListHead from '@/components/List/Head.vue'
+import ListRows from '@/components/List/Rows.vue'
+import * as list from '@/helpers/list'
+
 export default {
+  components: {
+    ListHead,
+    ListRows,
+  },
   props: {
     columns: Array,
     rows: [Array],
     action: Function,
     sortBy: Function,
   },
-  methods: {
-    sort(col) {
-      if (this.sortBy)
-        this.rows = this.sortBy(col, this.rows)
+  data() {
+    return {
+      ruleIndex: null,
     }
-  }
+  },
+  mounted() {
+    list.createCorrectCssRule(this.ruleIndex, this.columns)
+  },
+  methods: {
+    computeRows() {
+      return this.rows.map(async row => {
+        const columns = this.columns.map(this.computeRowColumns(row))
+        return Promise.all(columns)
+      })
+    },
+    computeRowColumns(row) {
+      return async function ({ field, format, ...others }) {
+        const fil = row[field]
+        const klasses = others.classes || []
+        const toObject = (acc, val) => ({ ...acc, [val]: true })
+        const classes = klasses.reduce(toObject, {})
+        if (format) {
+          return { value: format(fil), classes }
+        } else {
+          return { value: fil, classes }
+        }
+      }
+    },
+  },
+  computed: {
+    columnsClass() {
+      return list.generateColumnsClassName(this.columns)
+    },
+  },
+  watch: {
+    columns(newValue, oldValue) {
+      if (newValue.length !== oldValue.length) {
+        list.createCorrectCssRule(this.ruleIndex, newValue, oldValue)
+      }
+    },
+  },
 }
 </script>
 
-<style lang="css" scoped>
-.list {
-  cursor: pointer;
-  border-spacing: 0px;
-  border-collapse: collapse;
-  width: 100%;
+<style lang="css">
+.list-list {
+  display: grid;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px 1px var(--primary);
+  grid-template-rows: auto 1fr;
+  max-height: 100%;
+  overflow: hidden;
+  background: var(--contrast-background);
 }
 
-.list tbody {
-  overflow: scroll;
-  background: white;
-  border-radius: 8px;
+.list-thead {
+  display: block;
 }
 
-.list td {
-  border-color: white;
-  padding: 2rem;
+.list-tbody {
+  display: block;
+  overflow: auto;
 }
 
-.list tr:hover {
-  background: #f1f1f1;
-}
-.list tr {
-  border-bottom: 2px solid #f2f2f2;
-  cursor: pointer;
+.list-tr {
+  display: grid;
+  align-items: center;
+  justify-items: center;
 }
 
-.list thead {
-  text-transform: uppercase;
-  color: #72768a;
-  text-align: left;
+.list-th {
+  display: grid;
+  height: 100%;
+  padding: 0;
 }
 
-.list th {
-  font-weight: normal;
-  padding: 12px;
+.list-td {
+  display: block;
+}
+
+.list-cell {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.list-header.list-cell {
+  font-weight: 500;
+  background: var(--contrast-background);
+}
+
+.list-value.list-cell {
 }
 </style>

@@ -1,27 +1,27 @@
 <template>
-<div class="home">
-  <div class="grid">
-    <div class="element">
-      <label for="activity">Activity</label>
-      <Activity id="activity"/>
-    </div>
-    <div class="element">
-      <ActivityNow/>
-    </div>
-    <div class="element">
-      <label for="occupation">Occupation</label>
-      <Occupation id="occupation"/>
-    </div>
-    <div class="element">
-      <label for="ramuse">Ram utilization</label>
-      <RamUse id="ramuse"/>
-    </div>
-    <div class="element">
-      <label for="ramuse">Cpu utilization</label>
-      <CpuUse id="ramuse"/>
+  <div class="home">
+    <div class="grid">
+      <div class="element">
+        <label for="activity">Activity</label>
+        <Activity id="activity" />
+      </div>
+      <div class="element">
+        <ActivityNow />
+      </div>
+      <div class="element">
+        <label for="occupation">Occupation</label>
+        <Occupation id="occupation" />
+      </div>
+      <div class="element">
+        <label for="ramuse">Ram utilization</label>
+        <RamUse id="ramuse" />
+      </div>
+      <div class="element">
+        <label for="ramuse">Cpu utilization</label>
+        <CpuUse id="ramuse" />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -38,7 +38,7 @@ export default {
     RamUse,
     Occupation,
     CpuUse,
-  }
+  },
 }
 </script>
 
@@ -50,7 +50,7 @@ export default {
   padding: 10px;
 }
 .element {
-  background: white;
+  background: var(--primary);
 }
 .element label {
   padding: 10px;

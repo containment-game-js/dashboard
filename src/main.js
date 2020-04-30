@@ -4,10 +4,24 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import VueApexCharts from 'vue-apexcharts'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+  faHome,
+  faUser,
+  faUsers,
+  faTimesCircle,
+} from '@fortawesome/free-solid-svg-icons'
+
+library.add(faHome)
+library.add(faUser)
+library.add(faUsers)
+library.add(faTimesCircle)
 
 Vue.use(VueApexCharts)
 
-Vue.component('apexchart', VueApexCharts)
+Vue.component('apex-chart', VueApexCharts)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
