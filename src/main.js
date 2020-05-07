@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
-import _ from './config/firebase'
+import './config/firebase'
 import router from './router'
 import store from './store'
 import VueApexCharts from 'vue-apexcharts'

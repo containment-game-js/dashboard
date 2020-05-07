@@ -15,7 +15,7 @@ exports.logSubTest = functions.region('europe-west3').pubsub.topic(TOPIC_TEST).o
       timestamp,
     } = message.json
     if (type && payload && version && timestamp) {
-      db.collection(type).add({
+      db.collection('log/'+type).add({
         versionLog: version,
         timestamp,
         ...payload
