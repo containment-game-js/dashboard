@@ -15,6 +15,7 @@
     "apexcharts": "^3.17.1",
     "core-js": "^3.6.4",
     "faker": "^4.1.0",
+    "firebase": "^7.14.0",
     "register-service-worker": "^1.6.2",
     "socket.io-client": "^2.3.0",
     "vue": "^2.6.11",

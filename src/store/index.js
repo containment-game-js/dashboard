@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getInfo } from '../services/info'
+import {
+  getInfo
+} from '../services/info'
 
 Vue.use(Vuex)
 
@@ -14,17 +16,17 @@ const store = new Vuex.Store({
     roomInformation: [],
   },
   mutations: {
-    updateRooms: (state, rooms) => {
-      state.rooms = rooms
-    },
     updateCpu: (state, cpu) => {
-      if (state.cpu.length !== cpu.length) state.cpu = cpu
+      state.cpu = state.cpu.concat(cpu)
+    },
+    updateRooms: (state, rooms) => {
+      state.rooms = state.rooms.concat(rooms)
     },
     updateRam: (state, ram) => {
-      if (state.ram.length !== ram.length) state.ram = ram
+      state.ram = state.ram.concat(ram)
     },
     updateSockets: (state, sockets) => {
-      state.sockets = sockets
+      state.sockets = state.sockets.concat(sockets)
     },
     updateOccupation: (state, occupation) => {
       state.occupation = occupation
@@ -36,8 +38,8 @@ const store = new Vuex.Store({
   actions: {},
   modules: {},
   getters: {
-    ram: state => state.ram.slice(0, 60),
-    cpu: state => state.cpu.slice(0, 60),
+    ram: state => state.ram.slice(-60).map(({timestamp, value}) => ([timestamp, value])),
+    cpu: state => state.cpu.slice(-60).map(({timestamp, value}) => ([timestamp, value])),
     rooms: state => state.rooms,
     sockets: state => state.sockets,
     occupation: state => state.occupation,
